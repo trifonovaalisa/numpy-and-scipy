@@ -1,0 +1,16 @@
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+a = 5
+b = 10
+rv_uniform = stats.uniform(a, b - a)
+X = np.linspace(a-2 , b + 2, 1000)
+pdf = rv_uniform.pdf(X)
+plt.plot(X, pdf)
+plt.ylabel('f(x)')
+plt.xlabel('x')
+plt.ylim([0,1])
+plt.xlim([4, 12])
+plt.title('PDF for uniform')
+plt.show()
