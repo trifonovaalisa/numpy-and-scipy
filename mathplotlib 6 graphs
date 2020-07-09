@@ -1,0 +1,9 @@
+from numpy.random import exponential
+import matplotlib.pyplot as plt
+fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(7, 5))
+for row, row_axes in enumerate(axes):
+  for column, ax in enumerate(row_axes):
+     ax.plot(exponential(column, 20))
+     ax.set_title('Canvas column {} row {}'.format(column+1, row+1))
+fig.tight_layout()
+plt.show()
