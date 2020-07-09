@@ -1,0 +1,17 @@
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+a = 5
+b = 10
+rv_uniform = stats.uniform(a, b - a)
+rv_uniform.cdf(5.5)
+rv_uniform.pdf(7)
+X = np.linspace(a - 2, b + 2, 100)
+cdf = rv_uniform.cdf(X)
+plt.plot(X, cdf)
+plt.ylabel('F(x)')
+plt.xlabel('x')
+plt.ylim([0,1.5])
+plt.title('Cumulative distribution function for uniform')
+plt.show()
