@@ -1,0 +1,41 @@
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+population = stats.norm.rvs(loc=2, scale=5, size=100000)
+sample_size = 100
+sample = np.random.choice(a = population, size = sample_size)
+sample_mean = sample.mean()
+st_dev = population.std()
+z_value = stats.norm.ppf(q = 0.975)
+print("z-value:", z_value)
+z_value = stats.norm.ppf(q = 0.025)
+print("z-value:", z_value)
+interval = z_value * (st_dev/np.sqrt(sample_size))
+conf_inv = (sample_mean - interval, sample_mean + interval)
+print("Confidence interval:", conf_inv)
+
+
+def compute_ci(sample, st_dev):
+ z_value = stats.norm.ppf(q = 0.975)
+ sample_size = len(sample)
+ interval = z_value * (st_dev/np.sqrt(sample_size))
+ conf_inv = (sample_mean - interval, sample_mean + interval)
+ return conf_inv
+
+np.random.seed(5)
+sample_size = 2000
+sample = np.random.choice(a = population, size = sample_size)
+ci = compute_ci(sample, st_dev)
+print("conf interval for 2000 sample size:", ci)
+
+
+
+def compute_ci_t(sample, alpha=0.95):
+ n = sample.shape[0]
+ mu, se = np.mean(sample), stats.sem(sample)
+ bound = se * stats.t.ppf((1 + alpha) / 2., n-1)
+ return mu - bound, mu + bound
+
+sample = np.random.choice(a = population, size = 30)
+ci_t = compute_ci_t(sample, alpha=0.95)
+print("conf interval with t test for 2000 sample size:", ci_t)
