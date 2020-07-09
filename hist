@@ -1,0 +1,7 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from numpy.random import exponential
+df = pd.DataFrame({'x': range(20), 'y': exponential(10,20)})
+#%matplotlib inline 
+df.y.hist() 
+plt.show()
