@@ -1,10 +1,11 @@
+# ГРАФИК ФУНКЦИИ РАСПРЕДЕЛЕНИЯ
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
-a = 5
+a = 5 
 b = 10
-rv_uniform = stats.uniform(a, b - a)
+rv_uniform = stats.uniform(a, b - a) #СТАРТ И СМЕЩЕНИЕ
 rv_uniform.cdf(5.5)
 rv_uniform.pdf(7)
 X = np.linspace(a - 2, b + 2, 100)
