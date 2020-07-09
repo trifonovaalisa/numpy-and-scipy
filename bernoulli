@@ -1,0 +1,15 @@
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+rv_bernoulli = stats.bernoulli(p=0.3)
+print(rv_bernoulli.rvs(14))
+rv_binom = stats.binom(100, p=0.9)
+print(rv_binom.rvs(8))
+plt.hist(rv_binom.rvs(80), bins=10)
+a = 5
+b = 10
+rv_uniform = stats.uniform(a, b - a)
+print(rv_uniform.cdf(5.5))
+print(rv_uniform.pdf(7))
+plt.show()
