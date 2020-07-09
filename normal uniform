@@ -1,0 +1,14 @@
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+mu = 2
+sigma = 0.5
+rv_norm = stats.norm(loc=mu, scale=sigma)
+rv_norm.rvs(17)
+x = np.linspace(0, 4, 100)
+cdf = rv_norm.cdf(x)
+plt.plot(x, cdf)
+plt.ylabel('F(x)')
+plt.xlabel('x')
+plt.show()
