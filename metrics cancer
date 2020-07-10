@@ -1,0 +1,31 @@
+import pandas as pd
+from sklearn import datasets
+from sklearn import metrics
+from sklearn.linear_model import LogisticRegression
+cancer = datasets.load_breast_cancer()
+cancer.keys()
+print(cancer.DESCR[:760])
+print("\n")
+cancer_df = pd.DataFrame(cancer.data)
+cancer_df.columns = cancer.feature_names
+cancer_df.head()
+logistic_regression = LogisticRegression()
+model = logistic_regression.fit(cancer.data, cancer.target)
+print('Accuracy: {:.2f}'.format(model.score(cancer.data, cancer.target)))
+print("\n")
+
+predictions = model.predict(cancer.data)
+print('Accuracy: {:.2f}'.format(metrics.accuracy_score(cancer.target, predictions)))
+print('ROC AUC: {:.2f}'.format(metrics.roc_auc_score(cancer.target, predictions)))
+print('F1: {:.2f}'.format(metrics.f1_score(cancer.target, predictions)))
+print("\n")
+
+from sklearn.model_selection import train_test_split
+#В train_test_split передаем данные, признаки и целевую переменную, и будем разбивать данные на тестовую и тренировочную выборку
+x_train, x_test, y_train, y_test = train_test_split(
+cancer.data, cancer.target,
+test_size=0.2, random_state=12
+)
+model = logistic_regression.fit(x_train, y_train)
+print('Train accuracy: {:.2f}'.format(model.score(x_train, y_train)))
+print('Test accuracy: {:.2f}'.format(model.score(x_test, y_test)))
