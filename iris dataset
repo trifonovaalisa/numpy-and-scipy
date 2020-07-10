@@ -1,0 +1,20 @@
+from sklearn.model_selection import KFold, cross_val_score
+from sklearn.linear_model import LogisticRegression
+from sklearn import datasets
+iris = datasets.load_iris()
+iris.keys()
+logistic_regression = LogisticRegression()
+cv = KFold(n_splits=5) # +StratifiedKFold
+for split_idx, (train_idx, test_idx) in enumerate(cv.split(iris.data)):
+ x_train, x_test = iris.data[train_idx], iris.data[test_idx]
+ y_train, y_test = iris.target[train_idx], iris.target[test_idx]
+logistic_regression.fit(x_train, y_train)
+score = logistic_regression.score(x_test, y_test)
+print('Split {} Score: {:.2f}'.format(split_idx, score))
+print("\n")
+cv_score = cross_val_score(
+ logistic_regression, iris.data, iris.target,
+ scoring='accuracy', cv=cv
+)
+print('Cross val score: {}'.format(cv_score))
+print('Mean cross val score: {:.2f}'.format(cv_score.mean()))
