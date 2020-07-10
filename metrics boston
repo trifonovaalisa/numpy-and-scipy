@@ -1,0 +1,20 @@
+from sklearn import datasets
+from sklearn import metrics
+from sklearn.linear_model import Lasso, Ridge, ElasticNet
+from sklearn.model_selection import train_test_split
+boston = datasets.load_boston()
+#Lasso -L1 регуляризация, когда мы добавляем в нашу функцию ошибки первую норму весов, то есть мы добавляем функции сумму модулей весов, которые мы в данный момент имеем в нашей линейной регрессии.
+lasso = Lasso()
+#Ridge - гребневая регрессия, которая добавляет сумму квадратов весов
+ridge = Ridge()
+#ElasticNet -и то и другое, мы добавляем как L1 так и L2 регуляризацию.
+elastic = ElasticNet()
+for model in [lasso, ridge, elastic]:
+ x_train, x_test, y_train, y_test = train_test_split(
+ boston.data, boston.target, test_size=0.2)
+model.fit(x_train, y_train)
+predictions = model.predict(x_test)
+print(model.__class__)
+print('MSE: {:.2f}\\n'.format(metrics.mean_squared_error(y_test, predictions)))
+print('R2: {:.2f}'.format(model.score(x_test, y_test)))
+print('R2: {:.2f}'.format(metrics.r2_score(y_test, predictions)))
